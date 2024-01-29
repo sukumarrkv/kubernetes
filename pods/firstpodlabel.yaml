@@ -1,0 +1,12 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: firstpodlabel
+  labels:
+    app: fp
+    release: stable
+    team: green
+spec:
+  containers:
+    - name: web
+      image: nginx
