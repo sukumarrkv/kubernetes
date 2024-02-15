@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: namespace-deployment
+    labels:
+        app: namespace
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: namespace 
+    template:
+        metadata:
+            labels:
+                app: namespace 
+        spec:
+            containers:
+                - name: namepsace-nginx
+                  image: nginx
+                  ports:
+                    - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: namespace-service 
+spec:
+    type: NodePort
+    ports:
+      - port: 8080
+        targetPort: 8080
