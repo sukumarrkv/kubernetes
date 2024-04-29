@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: db-deployment
+    labels:
+        app: db
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: db
+    template:
+        metadata:
+            labels:
+                app: db
+        spec:
+            containers:
+              - name: mysql-container
+                image: mysql
+                env:
+                  - name: MYSQL_ROOT_PASSWORD
+                    value: test1234
+                  - name: MYSQL_DATABASE
+                    value: devops
+                  - name: MYSQL_ROOT_HOSTS
+                    value: '%'
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: mysql-devops
+    labels:
+        app: db
+spec:
+    selector:
+        app: db 
+    type: NodePort
+    ports:
+      - port: 3306
+        targetPort: 3306
+                
+    
