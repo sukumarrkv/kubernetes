@@ -16,7 +16,7 @@ spec:
         spec:
             containers:
               - name: payment-container
-                iamge: sukumarrkv/payment-service-devops
+                image: sukumarrkv/payment-service-devops
                 ports:
                   - containerPort: 8082
 ---
