@@ -16,7 +16,7 @@ spec:
         spec:
             containers:
               - name: account-container
-                image: account-service-devops
+                image: sukumarrkv/account-service-devops
                 ports:
                   - containerPort: 8081
 ---
