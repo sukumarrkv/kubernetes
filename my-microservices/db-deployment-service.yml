@@ -19,11 +19,15 @@ spec:
                 image: mysql
                 env:
                   - name: MYSQL_ROOT_PASSWORD
-                    value: test1234
+                    valueFrom:
+                        secretKeyRef:
+                          name: db-secret
+                          key: mysql-password
                   - name: MYSQL_DATABASE
-                    value: devops
-                  - name: MYSQL_ROOT_HOSTS
-                    value: '%'
+                    valueFrom:
+                        configMapKeyRef:
+                          name: db-configmap
+                          key: mysql-database-name
 ---
 apiVersion: v1
 kind: Service
