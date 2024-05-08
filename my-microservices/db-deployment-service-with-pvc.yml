@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: db-deployment-with-pvc
+    labels:
+        app: db-pvc
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: db-pvc
+    template:
+        metadata:
+            labels:
+                app: db-pvc
+        spec:
+            containers:
+              - name: mysql-container-pvc
+                image: mysql
+                env:
+                  - name: MYSQL_ROOT_PASSWORD
+                    value: test1234
+                  - name: MYSQL_DATABASE
+                    value: devops
+                volumeMounts:
+                  - name: mysql-pvc
+                    mountPath: /var/lib/mysql
+            volumes:
+              - name: mysql-pvc
+                persistentVolumeClaim:
+                    claimName: db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: mysql-devops
+    labels:
+        app: db-pvc
+spec:
+    selector:
+        app: db-pvc
+    type: NodePort
+    ports:
+      - port: 3306
+        targetPort: 3306
+        
+    
