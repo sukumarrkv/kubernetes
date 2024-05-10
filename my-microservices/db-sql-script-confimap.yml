@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: db-sql-script-configmap
+data:
+    initdb.sql: 
+        use devops;
+        Create table customer(
+        customer_id bigint auto_increment primary key,
+        name varchar(20),
+        email_address varchar(20),
+        age int 
+       );
+       
+       Create table account(
+       account_id bigint auto_increment primary key,
+       account_number bigint,
+       type varchar(20),
+       balance decimal(10,3),
+       customer_id bigint,
+       foreign key (customer_id) references customer(customer_id)
+       );
